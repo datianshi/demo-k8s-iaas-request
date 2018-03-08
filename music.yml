@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: music-service
+  namespace: iaas-request
+  labels:
+    app: web
+    tier: frontend
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: web
+    tier: frontend
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: iaas-request
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: web
+        tier: frontend
+    spec:
+      containers:
+      - name: web
+        image: datianshi/spring-music-new
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: mysql
+        # - name: SPRING_DATASOURCE_URL
+        #   value: jdbc:mysql://mysql.iaas-request.svc.cluster.local:3306/music
+        - name: DATABASE_JDBCURL
+          value: "jdbc:mysql://mysql.iaas-request.svc.cluster.local:3306/music"
+        - name: DATABASE_USERNAME
+          value: admin
+        - name: DATABASE_PASSWORD
+          value: admin
+        - name: SPRING_JPA_DATABASE
+          value: MYSQL
