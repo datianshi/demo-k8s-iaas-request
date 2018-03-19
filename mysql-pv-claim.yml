@@ -3,7 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
-  namespace: iaas-request
+  namespace: music
   annotations:
     volume.beta.kubernetes.io/storage-class: vsphere-storage
 spec:
@@ -11,4 +11,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 50Gi
+      storage: 10Gi

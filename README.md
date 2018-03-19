@@ -50,6 +50,13 @@ kubectl create -f music.yml
 This app contains 2 replicas (instances) to provide high availability
 music app talks to mysql through [kubernetes dns](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 
+Access kubernetes in cluster service
+
+```
+kubectl run music-client --image tutum/curl -ti --rm --namespace music -- /bin/bash
+curl http://[SERVICE_VIP]:8080
+```
+
 **mysql.iaas-request.svc.cluster.local**
 **[name].[namespace].svc.cluster.local**
 
@@ -62,7 +69,7 @@ kubectl create -f lb.yml
 ```
 
 ```
-kubectl get service/music-external --namespace iaas-request
+kubectl get service/music-external --namespace music
 NAME             TYPE           CLUSTER-IP      EXTERNAL-IP      PORT(S)        AGE
 music-external   LoadBalancer   10.100.200.99   10.193.148.235   80:32559/TCP   2h
 ```

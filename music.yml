@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: music-service
-  namespace: iaas-request
+  namespace: music
   labels:
     app: web
     tier: frontend
@@ -20,7 +20,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: iaas-request
+  namespace: music
 spec:
   replicas: 2
   template:
@@ -38,7 +38,7 @@ spec:
         # - name: SPRING_DATASOURCE_URL
         #   value: jdbc:mysql://mysql.iaas-request.svc.cluster.local:3306/music
         - name: DATABASE_JDBCURL
-          value: "jdbc:mysql://mysql.iaas-request.svc.cluster.local:3306/music"
+          value: "jdbc:mysql://mysql.music.svc.cluster.local:3306/music"
         - name: DATABASE_USERNAME
           value: admin
         - name: DATABASE_PASSWORD
